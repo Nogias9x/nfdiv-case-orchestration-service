@@ -22,4 +22,10 @@ public class LocalDateToWelshStringConverterTest {
         Assert.assertEquals("27 Ionawr 2020", novMonth);
     }
 
+    @Test
+    public void testNullLocalDateConvertedToWelsh() {
+        LocalDate localDate = null;
+        String novMonth = localDateToWelshStringConverter.convert(localDate);
+        Assert.assertNull(novMonth);
+    }
 }

@@ -1031,6 +1031,31 @@ public class CallbackController {
                         .build());
     }
 
+    @PostMapping(path = "/welshSetNextEventByState")
+    @ApiOperation(value = "Callback to set next event based on previous state.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Callback processed.")})
+    public ResponseEntity<CcdCallbackResponse> welshSetNextEventByState(
+            @RequestBody @ApiParam("CaseData") CcdCallbackRequest ccdCallbackRequest) throws WorkflowException {
+
+        return ResponseEntity.ok(
+                CcdCallbackResponse.builder()
+                        .data(caseOrchestrationService.welshSetNextEventByState(ccdCallbackRequest))
+                        .build());
+    }
+
+    @PostMapping(path = "/welshCapturePreviousState")
+    @ApiOperation(value = "Callback to set previous state")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Callback processed.")})
+    public ResponseEntity<CcdCallbackResponse> welshCapturePreviousState(
+            @RequestBody @ApiParam("CaseData") CcdCallbackRequest ccdCallbackRequest) throws WorkflowException {
+
+        return ResponseEntity.ok(
+                CcdCallbackResponse.builder()
+                        .data(caseOrchestrationService.welshCapturePreviousState(ccdCallbackRequest))
+                        .build());
+    }
 
     private List<String> getErrors(Map<String, Object> response) {
         ValidationResponse validationResponse = (ValidationResponse) response.get(VALIDATION_ERROR_KEY);

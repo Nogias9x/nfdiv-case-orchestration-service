@@ -161,4 +161,9 @@ public interface CaseOrchestrationService {
     Map<String, Object> decreeNisiDecisionState(CcdCallbackRequest ccdCallbackRequest) throws WorkflowException;
 
     Map<String, Object> processDnDecisionMade(CcdCallbackRequest ccdCallbackRequest) throws WorkflowException;
+
+    Map<String, Object> welshSetNextEventByState(CcdCallbackRequest ccdCallbackRequest) throws WorkflowException;
+
+    Map<String, Object> welshCapturePreviousState(CcdCallbackRequest ccdCallbackRequest) throws WorkflowException;
 }
+

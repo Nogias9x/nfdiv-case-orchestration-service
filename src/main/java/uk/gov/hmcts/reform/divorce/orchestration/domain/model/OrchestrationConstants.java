@@ -163,7 +163,11 @@ public class OrchestrationConstants {
     public static final String SOLICITOR_CREATE_EVENT = "solicitorCreate";
     public static final String SOLICITOR_SUBMIT_EVENT = "solicitorStatementOfTruthPaySubmit";
     public static final String WELSH_NEXT_EVENT = "WelshNextEvent";
+    public static final String WELSH_PREVIOUS_STATE = "WelshPreviousState";
     public static final String BO_WELSH_REVIEW = "boWelshReview";
+    public static final String BO_TRANSISTION_TO_SUBMITTED = "boTransToSubmitted";
+    public static final String BO_TRANSISTION_TO_PENDING_REJECTION = "boTransToPendingRejection";
+    public static final String UPDATE_NEXT_WELSH_CASE_EVENT = "updateNextWelshCaseEvent";
 
     // CCD Case States
     public static final String AOS_AWAITING = "AosAwaiting";
@@ -186,7 +190,9 @@ public class OrchestrationConstants {
     public static final String DA_REQUESTED = "DARequested";
     public static final String DA_OVERDUE = "DAOverdue";
     public static final String DIVORCE_GRANTED = "DivorceGranted";
-
+    public static final String SUBMITTED = "Submitted";
+    public static final String PENDING_REJECTION = "PendingRejection";
+    ;
     // CCD Co-Respondent Fields
     public static final String CO_RESP_LINKED_TO_CASE = "CoRespLinkedToCase";
     public static final String CO_RESP_LINKED_TO_CASE_DATE = "CoRespLinkedToCaseDate";

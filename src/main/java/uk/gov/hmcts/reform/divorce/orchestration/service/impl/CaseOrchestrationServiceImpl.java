@@ -76,6 +76,8 @@ import uk.gov.hmcts.reform.divorce.orchestration.workflows.SubmitToCCDWorkflow;
 import uk.gov.hmcts.reform.divorce.orchestration.workflows.UpdateToCCDWorkflow;
 import uk.gov.hmcts.reform.divorce.orchestration.workflows.ValidateBulkCaseListingWorkflow;
 import uk.gov.hmcts.reform.divorce.orchestration.workflows.WelshContinueWorkflow;
+import uk.gov.hmcts.reform.divorce.orchestration.workflows.WelshCapturePreviousStateWorkflow;
+import uk.gov.hmcts.reform.divorce.orchestration.workflows.WelshSetNextEventByStateWorkflow;
 import uk.gov.hmcts.reform.divorce.orchestration.workflows.decreeabsolute.ApplicantDecreeAbsoluteEligibilityWorkflow;
 import uk.gov.hmcts.reform.divorce.orchestration.workflows.decreeabsolute.DecreeAbsoluteAboutToBeGrantedWorkflow;
 import uk.gov.hmcts.reform.divorce.orchestration.workflows.notification.DnSubmittedEmailNotificationWorkflow;
@@ -173,6 +175,8 @@ public class CaseOrchestrationServiceImpl implements CaseOrchestrationService {
     private final RemoveDnOutcomeCaseFlagWorkflow removeDnOutcomeCaseFlagWorkflow;
     private final RemoveLegalAdvisorMakeDecisionFieldsWorkflow removeLegalAdvisorMakeDecisionFieldsWorkflow;
     private final WelshContinueWorkflow welshContinueWorkflow;
+    private final WelshSetNextEventByStateWorkflow welshSetNextEventByStateWorkflow;
+    private final WelshCapturePreviousStateWorkflow welshCapturePreviousStateWorkflow;
     private final NotifyForRefusalOrderWorkflow notifyForRefusalOrderWorkflow;
     private final RemoveDNDocumentsWorkflow removeDNDocumentsWorkflow;
     private final SendClarificationSubmittedNotificationWorkflow sendClarificationSubmittedNotificationWorkflow;
@@ -863,5 +867,15 @@ public class CaseOrchestrationServiceImpl implements CaseOrchestrationService {
     @Override
     public Map<String, Object> processDnDecisionMade(CcdCallbackRequest ccdCallbackRequest) throws WorkflowException {
         return dnDecisionMadeWorkflow.run(ccdCallbackRequest);
+    }
+
+    @Override
+    public Map<String, Object> welshSetNextEventByState(CcdCallbackRequest ccdCallbackRequest) throws WorkflowException {
+        return welshSetNextEventByStateWorkflow.run(ccdCallbackRequest, authUtil.getCaseworkerToken());
+    }
+
+    @Override
+    public Map<String, Object> welshCapturePreviousState(CcdCallbackRequest ccdCallbackRequest) throws WorkflowException {
+        return welshCapturePreviousStateWorkflow.run(ccdCallbackRequest, authUtil.getCaseworkerToken());
     }
 }

@@ -2,6 +2,7 @@ package uk.gov.hmcts.reform.divorce.orchestration.tasks;
 
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import uk.gov.hmcts.reform.divorce.orchestration.client.CaseMaintenanceClient;
 import uk.gov.hmcts.reform.divorce.orchestration.framework.workflow.task.Task;
@@ -16,6 +17,7 @@ import static uk.gov.hmcts.reform.divorce.orchestration.domain.model.Orchestrati
 import static uk.gov.hmcts.reform.divorce.orchestration.domain.model.OrchestrationConstants.WELSH_NEXT_EVENT;
 
 @RequiredArgsConstructor
+@Slf4j
 @Component
 public class WelshContinueTask implements Task<Map<String, Object>> {
     private final CaseMaintenanceClient caseMaintenanceClient;
@@ -26,10 +28,10 @@ public class WelshContinueTask implements Task<Map<String, Object>> {
         String caseIDJsonKey = context.getTransientObject(CASE_ID_JSON_KEY);
 
         Optional<String> nextEvent = Optional.ofNullable(payload.get(WELSH_NEXT_EVENT)).map(String.class::cast);
-
+        log.info("About to move to next event {}", nextEvent.get());
         if (nextEvent.isPresent()) {
             try {
-                payload.remove(WELSH_NEXT_EVENT);
+                payload.put(WELSH_NEXT_EVENT, null);
                 caseMaintenanceClient.updateCase(
                         authToken,
                         caseIDJsonKey,

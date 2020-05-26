@@ -43,6 +43,7 @@ public class WelshSetNextEventByStateTask implements Task<Map<String, Object>> {
                     payload
             );
         } catch (FeignException exception) {
+            payload.put(WELSH_PREVIOUS_STATE, previousState);
             throw new TaskException(String.join(" ", "For case:", caseIDJsonKey, "update failed for event id", UPDATE_NEXT_WELSH_CASE_EVENT), exception);
         }
 

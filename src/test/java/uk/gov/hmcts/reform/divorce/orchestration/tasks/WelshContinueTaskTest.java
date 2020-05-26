@@ -18,6 +18,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -54,13 +55,13 @@ public class WelshContinueTaskTest {
     @Test
     public void testExecuteSuccess() throws TaskException {
         when(caseMaintenanceClient.updateCase(context.getTransientObject(AUTH_TOKEN_JSON_KEY),
-                context.getTransientObject(CASE_ID_JSON_KEY), (String) caseData.get(WELSH_NEXT_EVENT), caseData))
-                .thenReturn(Collections.EMPTY_MAP);
+            context.getTransientObject(CASE_ID_JSON_KEY), (String) caseData.get(WELSH_NEXT_EVENT), caseData))
+            .thenReturn(Collections.EMPTY_MAP);
         welshContinueTask.execute(context, caseData);
         verify(caseMaintenanceClient).updateCase(eq(context.getTransientObject(AUTH_TOKEN_JSON_KEY)),
-                eq(context.getTransientObject(CASE_ID_JSON_KEY)),same("Continue"),
-                eq(Collections.EMPTY_MAP));
-        assertNull(caseData.get(WELSH_NEXT_EVENT));
+            eq(context.getTransientObject(CASE_ID_JSON_KEY)),same("Continue"),
+            eq(caseData));
+        assertThat(caseData).containsEntry(WELSH_NEXT_EVENT, null);
     }
 
     @Test
@@ -91,6 +92,5 @@ public class WelshContinueTaskTest {
         verify(caseMaintenanceClient, never()).updateCase(eq(context.getTransientObject(AUTH_TOKEN_JSON_KEY)),
                 eq(context.getTransientObject(CASE_ID_JSON_KEY)),isNull(),
                 eq(caseData));
-        assertNull(caseData.get(WELSH_NEXT_EVENT));
     }
 }

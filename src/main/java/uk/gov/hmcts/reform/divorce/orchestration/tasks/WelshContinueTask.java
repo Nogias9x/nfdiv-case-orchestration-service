@@ -28,8 +28,8 @@ public class WelshContinueTask implements Task<Map<String, Object>> {
         String caseIDJsonKey = context.getTransientObject(CASE_ID_JSON_KEY);
 
         Optional<String> nextEvent = Optional.ofNullable(payload.get(WELSH_NEXT_EVENT)).map(String.class::cast);
-        log.info("About to move to next event {}", nextEvent.get());
         if (nextEvent.isPresent()) {
+            log.info("About to move to next event {}", nextEvent.get());
             try {
                 payload.put(WELSH_NEXT_EVENT, null);
                 caseMaintenanceClient.updateCase(

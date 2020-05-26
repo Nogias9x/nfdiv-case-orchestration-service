@@ -21,8 +21,9 @@ public class WelshCapturePreviousState implements Task<Map<String, Object>> {
     @Override
     public Map<String, Object> execute(TaskContext context, final Map<String, Object> payload) throws TaskException {
         String previousState = caseMaintenanceClient.retrievePetitionById(
-            context.getTransientObject(AUTH_TOKEN_JSON_KEY).toString(),
-            context.getTransientObject(CASE_ID_JSON_KEY).toString()).getState();
+            context.<String>getTransientObject(AUTH_TOKEN_JSON_KEY),
+            context.<String>getTransientObject(CASE_ID_JSON_KEY))
+            .getState();
 
         payload.put(WELSH_PREVIOUS_STATE, previousState);
         return payload;

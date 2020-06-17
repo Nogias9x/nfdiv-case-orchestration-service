@@ -38,11 +38,11 @@ import static uk.gov.hmcts.reform.divorce.orchestration.domain.model.Orchestrati
 import static uk.gov.hmcts.reform.divorce.orchestration.domain.model.OrchestrationConstants.RESP_LAST_NAME_CCD_FIELD;
 
 @RunWith(SpringRunner.class)
-public class SendRespondentGenericUpdateNotificationEmailTaskTest {
+public class SendRespondentGenericUpdateNotificationEmailTest {
     @Mock EmailService emailService;
 
     @InjectMocks
-    SendRespondentGenericUpdateNotificationEmailTask sendRespondentGenericUpdateNotificationEmailTask;
+    SendRespondentGenericUpdateNotificationEmail sendRespondentGenericUpdateNotificationEmail;
 
     private Map<String, Object> testData;
     private TaskContext context;
@@ -64,7 +64,7 @@ public class SendRespondentGenericUpdateNotificationEmailTaskTest {
 
     @Test
     public void shouldNotCallEmailServiceForGenericUpdateIfRespEmailDoesNotExist() throws TaskException {
-        sendRespondentGenericUpdateNotificationEmailTask.execute(context, testData);
+        sendRespondentGenericUpdateNotificationEmail.execute(context, testData);
 
         verifyZeroInteractions(emailService);
     }
@@ -78,7 +78,7 @@ public class SendRespondentGenericUpdateNotificationEmailTaskTest {
         testData.put(RESP_LAST_NAME_CCD_FIELD, TEST_PETITIONER_LAST_NAME);
         testData.put(LANGUAGE_PREFERENCE_WELSH, "Yes");
 
-        Map returnPayload = sendRespondentGenericUpdateNotificationEmailTask.execute(context, testData);
+        Map returnPayload = sendRespondentGenericUpdateNotificationEmail.execute(context, testData);
 
         assertEquals(testData, returnPayload);
 

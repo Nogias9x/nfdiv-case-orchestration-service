@@ -6,12 +6,13 @@ import org.springframework.stereotype.Component;
 import uk.gov.hmcts.reform.bsp.common.model.document.Addressee;
 import uk.gov.hmcts.reform.divorce.orchestration.domain.model.bulk.print.BasicCoverLetter;
 import uk.gov.hmcts.reform.divorce.orchestration.domain.model.bulk.print.DocmosisTemplateVars;
+import uk.gov.hmcts.reform.divorce.orchestration.domain.model.documentgeneration.GeneratedDocumentInfo;
 import uk.gov.hmcts.reform.divorce.orchestration.framework.workflow.task.TaskContext;
 import uk.gov.hmcts.reform.divorce.orchestration.framework.workflow.task.TaskException;
 import uk.gov.hmcts.reform.divorce.orchestration.service.bulk.print.PdfDocumentGenerationService;
 import uk.gov.hmcts.reform.divorce.orchestration.service.bulk.print.dataextractor.AddresseeDataExtractor;
 import uk.gov.hmcts.reform.divorce.orchestration.service.bulk.print.dataextractor.CtscContactDetailsDataProviderService;
-import uk.gov.hmcts.reform.divorce.orchestration.service.bulk.print.dataextractor.DatesDataExtractor;
+import uk.gov.hmcts.reform.divorce.orchestration.service.bulk.print.dataextractor.DaGrantedLetterDataExtractor;
 import uk.gov.hmcts.reform.divorce.orchestration.service.bulk.print.dataextractor.FullNamesDataExtractor;
 import uk.gov.hmcts.reform.divorce.orchestration.util.CcdUtil;
 
@@ -43,10 +44,17 @@ public class DaGrantedLetterGenerationTask extends BasePayloadSpecificDocumentGe
             .caseReference(getCaseId(context))
             .ctscContactDetails(ctscContactDetailsDataProviderService.getCtscContactDetails())
             .addressee(getAddresseeRespondentOrSolicitorIfRepresented(caseData))
-            .letterDate(DatesDataExtractor.getDaGrantedDate(caseData))
+            .letterDate(DaGrantedLetterDataExtractor.getDaGrantedDate(caseData))
             .petitionerFullName(FullNamesDataExtractor.getPetitionerFullName(caseData))
             .respondentFullName(FullNamesDataExtractor.getRespondentFullName(caseData))
             .build();
+    }
+
+    @Override
+    protected GeneratedDocumentInfo populateMetadataForGeneratedDocument(GeneratedDocumentInfo generatedDocumentInfo) {
+        generatedDocumentInfo.setDocumentType(FileMetadata.DOCUMENT_TYPE);
+
+        return generatedDocumentInfo;
     }
 
     @Override

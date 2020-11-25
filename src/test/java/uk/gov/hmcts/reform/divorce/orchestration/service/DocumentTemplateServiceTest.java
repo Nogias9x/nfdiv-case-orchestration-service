@@ -80,9 +80,6 @@ public class DocumentTemplateServiceTest {
         templateId = service.getTemplateId(LanguagePreference.ENGLISH, DocumentType.DECREE_ABSOLUTE_TEMPLATE_ID);
         assertEquals("FL-DIV-GOR-ENG-00062.docx", templateId);
 
-        templateId = service.getTemplateId(LanguagePreference.ENGLISH, DocumentType.SOLICITOR_PERSONAL_SERVICE_LETTER_TEMPLATE_ID);
-        assertEquals("FL-DIV-GNO-ENG-00073.docx", templateId);
-
         templateId = service.getTemplateId(LanguagePreference.ENGLISH, DocumentType.BULK_LIST_FOR_PRONOUNCEMENT_TEMPLATE_ID);
         assertEquals("FL-DIV-GNO-ENG-00059.docx", templateId);
 
@@ -150,9 +147,6 @@ public class DocumentTemplateServiceTest {
 
         templateId = service.getTemplateId(LanguagePreference.WELSH, DocumentType.DECREE_ABSOLUTE_TEMPLATE_ID);
         assertEquals("FL-DIV-GOR-WEL-00242.docx", templateId);
-
-        templateId = service.getTemplateId(LanguagePreference.WELSH, DocumentType.SOLICITOR_PERSONAL_SERVICE_LETTER_TEMPLATE_ID);
-        assertEquals("FL-DIV-GNO-WEL-00245.docx", templateId);
 
         templateId = service.getTemplateId(LanguagePreference.WELSH, DocumentType.BULK_LIST_FOR_PRONOUNCEMENT_TEMPLATE_ID);
         assertEquals("FL-DIV-GNO-WEL-00241.docx", templateId);

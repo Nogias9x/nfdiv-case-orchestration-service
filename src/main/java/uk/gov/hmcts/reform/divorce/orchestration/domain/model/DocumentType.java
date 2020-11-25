@@ -18,7 +18,6 @@ public enum DocumentType {
     DECREE_NISI_REFUSAL_ORDER_CLARIFICATION_TEMPLATE_ID("decreeNisiRefusalOrderClarificationTemplateId"),
     DECREE_NISI_REFUSAL_ORDER_REJECTION_TEMPLATE_ID("decreeNisiRefusalOrderRejectionTemplateId"),
     DECREE_ABSOLUTE_TEMPLATE_ID("decreeAbsoluteTemplateId"),
-    SOLICITOR_PERSONAL_SERVICE_LETTER_TEMPLATE_ID("solicitorPersonalServiceLetterTemplateId"),
     BULK_LIST_FOR_PRONOUNCEMENT_TEMPLATE_ID("bulkListForPronouncementTemplateId"),
     RESPONDENT_AOS_INVITATION_LETTER_TEMPLATE_ID("respondentAOSInvitationLetterTemplateId"),
     CO_RESPONDENT_AOS_INVITATION_LETTER_TEMPLATE_ID("coRespondentAOSInvitationLetterTemplateId"),
@@ -30,7 +29,7 @@ public enum DocumentType {
     RESPONDENT_ANSWERS("respondentAnswers"),
     COE("coe"),
     CASE_LIST_FOR_PRONOUNCEMENT("caseListForPronouncement");
-    
+
 
     private final String templateName;
 

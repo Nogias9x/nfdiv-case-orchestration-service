@@ -13,18 +13,19 @@ import static uk.gov.hmcts.reform.divorce.orchestration.domain.model.Orchestrati
 import static uk.gov.hmcts.reform.divorce.orchestration.domain.model.OrchestrationConstants.CASE_STATE_JSON_KEY;
 import static uk.gov.hmcts.reform.divorce.orchestration.domain.model.OrchestrationConstants.PERSONAL_SERVICE_VALUE;
 import static uk.gov.hmcts.reform.divorce.orchestration.domain.model.OrchestrationConstants.SOL_SERVICE_METHOD_CCD_FIELD;
+import static uk.gov.hmcts.reform.divorce.orchestration.tasks.util.TaskUtils.getMandatoryPropertyValueAsString;
 import static uk.gov.hmcts.reform.divorce.orchestration.tasks.util.TaskUtils.getOptionalPropertyValueAsString;
 
 @Slf4j
 @Component
-public class ServiceMethodValidationTask implements Task<Map<String, Object>> {
+public class AwaitingServiceValidationTask implements Task<Map<String, Object>> {
 
     private static final String AWAITING_SERVICE_STATE = "AwaitingService";
 
     @Override
     public Map<String, Object> execute(TaskContext context, Map<String, Object> payload) throws TaskException {
-        String solServiceMethod = getOptionalPropertyValueAsString(payload, SOL_SERVICE_METHOD_CCD_FIELD, null);
-        if (!Strings.isNullOrEmpty(solServiceMethod) && PERSONAL_SERVICE_VALUE.equals(solServiceMethod)) {
+        String solServiceMethod = getMandatoryPropertyValueAsString(payload, SOL_SERVICE_METHOD_CCD_FIELD);
+        if (PERSONAL_SERVICE_VALUE.equals(solServiceMethod)) {
             String currentCaseState = context.getTransientObject(CASE_STATE_JSON_KEY);
             if (!AWAITING_SERVICE_STATE.equals(currentCaseState)) {
                 final String caseId = context.getTransientObject(CASE_ID_JSON_KEY);

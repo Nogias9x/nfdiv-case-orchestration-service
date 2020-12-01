@@ -1595,6 +1595,37 @@ public class CallbackControllerTest {
     }
 
     @Test
+    public void shouldReturnOK_WhenGeneralReferralPaymentEventIsCalled() throws CaseOrchestrationServiceException {
+        final Map<String, Object> caseData = Collections.emptyMap();
+        final CaseDetails caseDetails = CaseDetails.builder().caseData(caseData).build();
+        final CcdCallbackRequest ccdCallbackRequest = CcdCallbackRequest.builder().caseDetails(caseDetails).build();
+        final CcdCallbackResponse expectedResponse = CcdCallbackResponse.builder().data(caseData).build();
+
+        when(generalReferralService.generalReferralPaymentEvent(caseDetails)).thenReturn(caseData);
+
+        final ResponseEntity<CcdCallbackResponse> response = classUnderTest.generalReferralPaymentEvent(ccdCallbackRequest);
+
+        assertThat(response.getStatusCode(), is(OK));
+        assertThat(response.getBody(), is(expectedResponse));
+    }
+
+
+    @Test
+    public void shouldReturnOK_WhenConfirmServicePaymentEventIsCalled() throws CaseOrchestrationServiceException {
+        final Map<String, Object> caseData = Collections.emptyMap();
+        final CaseDetails caseDetails = CaseDetails.builder().caseData(caseData).build();
+        final CcdCallbackRequest ccdCallbackRequest = CcdCallbackRequest.builder().caseDetails(caseDetails).build();
+        final CcdCallbackResponse expectedResponse = CcdCallbackResponse.builder().data(caseData).build();
+
+        when(serviceJourneyService.confirmServicePaymentEvent(caseDetails)).thenReturn(caseData);
+
+        final ResponseEntity<CcdCallbackResponse> response = classUnderTest.confirmServicePaymentEvent(ccdCallbackRequest);
+
+        assertThat(response.getStatusCode(), is(OK));
+        assertThat(response.getBody(), is(expectedResponse));
+    }
+
+    @Test
     public void shouldCallRightServiceMethod_ForPreparingAosNotReceivedForSubmission() throws CaseOrchestrationServiceException {
         when(aosService.prepareAosNotReceivedEventForSubmission(any(), any())).thenReturn(TEST_PAYLOAD_TO_RETURN);
 
@@ -1709,5 +1740,21 @@ public class CallbackControllerTest {
 
         assertThat(response.getStatusCode(), equalTo(OK));
         verify(alternativeServiceService).aosNotReceivedForProcessServer(caseDetails);
+    }
+
+    @Test
+    public void shouldReturnOk_whenAlternativeServiceConfirmedIsCalled() throws CaseOrchestrationServiceException {
+        CaseDetails caseDetails = CaseDetails.builder().build();
+        when(alternativeServiceService.alternativeServiceConfirmed(caseDetails))
+            .thenReturn(CaseDetails.builder().build());
+
+        CcdCallbackRequest ccdCallbackRequest = CcdCallbackRequest.builder()
+            .caseDetails(caseDetails)
+            .build();
+
+        ResponseEntity<CcdCallbackResponse> response = classUnderTest.alternativeServiceConfirmed(ccdCallbackRequest);
+
+        assertThat(response.getStatusCode(), equalTo(OK));
+        verify(alternativeServiceService).alternativeServiceConfirmed(caseDetails);
     }
 }

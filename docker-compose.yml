@@ -1,7 +1,7 @@
 ---
-version: '2.1' 
+version: '2.1'
 
-services: 
+services:
   div-database:
     build:
       context: docker/database
@@ -11,8 +11,8 @@ services:
       timeout: 10s
       retries: 10
     environment:
-       DIV_SCHEDULER_DB_USER_NAME: div_scheduler_user
-       DIV_SCHEDULER_DB_PASSWORD: div_scheduler_passwd
+       NFDIV_SCHEDULER_DB_USER_NAME: nfdiv_scheduler_user
+       NFDIV_SCHEDULER_DB_PASSWORD: nfdiv_scheduler_passwd
     ports:
       - 5432:5432
     volumes:

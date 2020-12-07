@@ -535,8 +535,8 @@ run {
 
 flyway {
     url = System.getenv('FLYWAY_URL')
-    user = System.getenv('DIV_SCHEDULER_DB_USER_NAME')
-    password = System.getenv('DIV_SCHEDULER_DB_PASSWORD')
+    user = System.getenv('NFDIV_SCHEDULER_DB_USER_NAME')
+    password = System.getenv('NFDIV_SCHEDULER_DB_PASSWORD')
     baselineOnMigrate = true
     baselineVersion = '000'
     schemas = 'public'

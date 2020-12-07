@@ -6,13 +6,13 @@ locals {
   vaultName = "${var.product}-${var.env}"
 }
 
-module "div-scheduler-db" {
+module "nfdiv-scheduler-db" {
   source             = "git@github.com:hmcts/cnp-module-postgres?ref=master"
   product            = "${var.product}-${var.component}"
   location           = var.location_db
   env                = var.env
-  database_name      = "div_scheduler"
-  postgresql_user    = "div_scheduler"
+  database_name      = "nfdiv_scheduler"
+  postgresql_user    = "nfdiv_scheduler"
   postgresql_version = "10"
   sku_name           = "GP_Gen5_2"
   sku_tier           = "GeneralPurpose"
@@ -27,12 +27,12 @@ data "azurerm_key_vault" "div_key_vault" {
 
 resource "azurerm_key_vault_secret" "postgresql-user" {
   name      = "${var.component}-postgresql-user"
-  value     = module.div-scheduler-db.user_name
+  value     = module.nfdiv-scheduler-db.user_name
   key_vault_id = data.azurerm_key_vault.div_key_vault.id
 }
 
 resource "azurerm_key_vault_secret" "postgresql-password" {
   name      = "${var.component}-postgresql-password"
-  value     = module.div-scheduler-db.postgresql_password
+  value     = module.nfdiv-scheduler-db.postgresql_password
   key_vault_id = data.azurerm_key_vault.div_key_vault.id
 }

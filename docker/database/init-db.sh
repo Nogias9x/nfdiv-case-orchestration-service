@@ -2,19 +2,19 @@
 
 set -e
 
-if [ -z "DIV_SCHEDULER_DB_USER_NAME" ] || [ -z "DIV_SCHEDULER_DB_PASSWORD" ]; then
-  echo "ERROR: Missing environment variable. Set value for both 'DIV_SCHEDULER_DB_USER_NAME' and 'DIV_SCHEDULER_DB_PASSWORD'."
+if [ -z "NFDIV_SCHEDULER_DB_USER_NAME" ] || [ -z "NFDIV_SCHEDULER_DB_PASSWORD" ]; then
+  echo "ERROR: Missing environment variable. Set value for both 'NFDIV_SCHEDULER_DB_USER_NAME' and 'NFDIV_SCHEDULER_DB_PASSWORD'."
   exit 1
 fi
 echo "Runnning the filesdocker"
-echo $DIV_SCHEDULER_DB_PASSWORD
-echo $DIV_SCHEDULER_DB_USER_NAME
+echo $NFDIV_SCHEDULER_DB_PASSWORD
+echo $NFDIV_SCHEDULER_DB_USER_NAME
 
 # Create role and database
-psql -v ON_ERROR_STOP=1 --username postgres --set USERNAME=$DIV_SCHEDULER_DB_USER_NAME --set PASSWORD=$DIV_SCHEDULER_DB_PASSWORD <<-EOSQL
+psql -v ON_ERROR_STOP=1 --username postgres --set USERNAME=$NFDIV_SCHEDULER_DB_USER_NAME --set PASSWORD=$NFDIV_SCHEDULER_DB_PASSWORD <<-EOSQL
   CREATE USER :USERNAME WITH PASSWORD ':PASSWORD';
 
-  CREATE DATABASE div_scheduler
+  CREATE DATABASE nfdiv_scheduler
     WITH OWNER = :USERNAME
     ENCODING = 'UTF-8'
     CONNECTION LIMIT = -1;

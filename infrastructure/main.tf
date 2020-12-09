@@ -20,7 +20,7 @@ module "nfdiv-scheduler-db" {
   subscription       = var.subscription
 }
 
-data "azurerm_key_vault" "div_key_vault" {
+data "azurerm_key_vault" "key_vault" {
   name = local.vaultName
   resource_group_name = local.vaultName
 }
@@ -28,11 +28,11 @@ data "azurerm_key_vault" "div_key_vault" {
 resource "azurerm_key_vault_secret" "postgresql-user" {
   name      = "${var.component}-postgresql-user"
   value     = module.nfdiv-scheduler-db.user_name
-  key_vault_id = data.azurerm_key_vault.div_key_vault.id
+  key_vault_id = data.azurerm_key_vault.key_vault.id
 }
 
 resource "azurerm_key_vault_secret" "postgresql-password" {
   name      = "${var.component}-postgresql-password"
   value     = module.nfdiv-scheduler-db.postgresql_password
-  key_vault_id = data.azurerm_key_vault.div_key_vault.id
+  key_vault_id = data.azurerm_key_vault.key_vault.id
 }

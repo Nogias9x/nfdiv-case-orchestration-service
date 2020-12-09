@@ -37,7 +37,7 @@ env.PACT_BROKER_FULL_URL = 'https://pact-broker.platform.hmcts.net'
 
 withPipeline(type, product, component) {
     if (env.CHANGE_TITLE && !env.CHANGE_TITLE.startsWith('[PREVIEW]')) {
-        enableDbMigration('div')
+        enableDbMigration('nfdiv')
     }
     loadVaultSecrets(secrets)
     enableAksStagingDeployment()
